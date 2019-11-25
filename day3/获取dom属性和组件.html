@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="button" value="点击获取父组件文本内容" @click="getText" />
+      <h3 ref="f3">我是{{ msg }}</h3>
+
+      <son></son>
+    </div>
+
+    <template id="son">
+      <div>
+        <input type="button" value="点击获取子组件文本内容" @click="show" />
+        <h3 ref="s3">我是{{ msg }}</h3>
+      </div>
+    </template>
+
+    <script>
+      var son = {
+        data() {
+          return { msg: "子组件" };
+        },
+        template: "#son",
+        methods: {
+          show() {
+            alert(this.$refs.s3.innerText);
+          }
+        }
+      };
+
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "父组件"
+        },
+        methods: {
+          getText() {
+            alert(this.$refs.f3.innerText);
+          }
+        },
+        components: {
+          son
+        }
+      });
+    </script>
+  </body>
+</html>

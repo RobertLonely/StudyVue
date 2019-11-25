@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap.css" />
+    <style>
+      #app {
+        margin: 20px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 用属性绑定的方法传递父组件的值，用触发事件的方法调用父组件的方法 -->
+      <pin :arr="list" @func="loadContent"></pin>
+
+      <ul class="list-group">
+        <li v-for="item in list" class="list-group-item">
+          {{ item.content }}
+          <span class="badge">评论人:{{ item.user }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <template id="pin">
+      <form>
+        <div class="form-group">
+          <label for="people">评论人：</label>
+          <input
+            type="text"
+            class="form-control"
+            id="people"
+            placeholder="汪帅"
+            v-model="user"
+          />
+        </div>
+        <div class="form-group">
+          <label for="content">评论内容：</label>
+          <textarea
+            class="form-control"
+            id="content"
+            placeholder="帅就一个字，却跟了我一辈子"
+            rows="5"
+            v-model="content"
+          ></textarea>
+        </div>
+        <input
+          type="button"
+          value="发表评论"
+          class="btn btn-primary"
+          style="margin-bottom:20px"
+          @click="postContent"
+        />
+      </form>
+    </template>
+
+    <script>
+      var discuss = {
+        data() {
+          return { user: "", content: "" };
+        },
+        template: "#pin",
+        methods: {
+          // 分析：发表评论的业务逻辑
+          postContent() {
+            //接收最新的评论数据对象
+            var ct = {
+              id: Date.now(),
+              user: this.user,
+              content: this.content
+            };
+            //！！！localStorage只支持存放JSON字符串数据
+            //在保存最新的评论数据之前，要先从localStorage.getItem(key)获取到之前的评论数据，转换为数组对象，然后把最新的评论push到这个数组。如果获取到为空则返回一个'[]'让 JSON.parse去转换
+            var list = JSON.parse(localStorage.getItem("contents") || '[]')
+            list.unshift(ct);
+            //把最新的评论列表数组，再次调用JSON.stringify转为JSON字符串，然后调用localStorage.setItem(key,value)存到localStorage中
+            localStorage.setItem("contents", JSON.stringify(list))
+            this.user = this.content = "";
+            //触发父组件方法
+            this.$emit("func");
+          }
+        }
+      };
+
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          //测试数据，当created()没触发时显示预定义数据
+          list: [
+            { id: Date.now(), user: "小明", content: "明明你也很" },
+            { id: Date.now(), user: "小红", content: "山丹丹花开那个红艳艳" },
+            { id: Date.now(), user: "小军", content: "军中的一朵绿花" }
+          ]
+        },
+        methods: {
+          //从本地的 localStorage 中，加载评论列表
+          loadContent() {
+            var list = JSON.parse(localStorage.getItem("contents") || '[]');
+            this.list = list;
+          }
+        },
+        components: {
+          pin: discuss
+        },
+        //加载页面时，将本地的 localStorage 中的数据渲染到页面
+        created() {
+          this.loadContent();
+        }
+      });
+    </script>
+  </body>
+</html>

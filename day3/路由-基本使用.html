@@ -1,0 +1,62 @@
+<!-- 什么是路由
+1. 后端路由：对于普通的网站,所有的超链接都是URL地址，所有的URL地址都对应服务器上对应的资源；
+2. 前端路由：对于单页面应用程序来说，主要通过URL中的hash(#号)来实现不同页面之间的切换，同时hash有一个特点：HTTP请求中不会包含hash相关的内容；所以单页面程序中的页面跳转主要用hash实现-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+  <!--1.安装vue-router路由模块-->
+  <script src="../lib/vue-router.js"></script>
+  <style>
+    .myActive{
+      background: hotpink;
+    }
+  
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 2.router-link 默认渲染为一个a 标签 -->
+    <router-link to="/login">登录</router-link>
+    <router-link to="/register">注册</router-link>
+    <!-- 3.vue-router提供的元素，我们可以把router-view认为是一个占位符，将来路由规则匹配到的组件，就会展示到这个router-view中去 -->
+    <router-view></router-view>
+  </div>
+  <script>
+    //组件的模板对象
+    var login={
+      template:'<h3>登录</h3>'
+    }
+    var register={
+      template:'<h3>注册</h3>'
+    }
+
+    //4.创建一个路由对象。当导入vue-router.js后，在window全局对象中就有了一个路由的构造函数叫做VueRouter
+    var routerObj=new VueRouter({
+      // 5.路由匹配规则
+      routes:[
+        // 每个路由规则都是一个对象,这个对象身上有两个必须的属性：
+        //path,表示监听哪个路由链接地址；
+        //component,表示如果路由是前面匹配到的path,则展示component属性对应的组件
+        // 注意:component的属性值，必须是一个组件的模板对象，不能是组件的引用名
+        {path:'/',redirect:'/login'},//打开页面时就重定向到登录页面
+        {path:'/login',component:login},
+        {path:'/register',component:register}
+      ],
+      //设置链接激活时使用的 CSS 类名。默认值router-link-active可通过路由的构造选项linkActiveClass来全局配置。
+      linkActiveClass:'myActive'
+    })
+    var vm=new Vue({
+      el:'#app',
+      data:{},
+      methods:{},
+      // 6.将路由规则对象注册到vm实例上,用来监听URL地址的变化，然后展示对应的组件
+      router:routerObj
+    })
+  </script>
+</body>
+</html>

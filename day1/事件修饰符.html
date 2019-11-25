@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .inner{
+            width: 100px;
+            height: 100px;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <div class="inner" @click="divHandle">
+           <input type="button" value="按钮" @click.stop="inputHandle">
+       </div>
+       <a href="http://www.baidu.com" @click.prevent="aHandle">123</a>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                message:'<a href="#">123</a>',
+            },
+            methods:{
+                divHandle(){
+                    console.log('这是div的点击事件')
+                },
+                inputHandle(){
+                    console.log('这是input的点击事件');
+                },
+                aHandle(){
+                    console.log('这是a的连接事件');
+                    
+                }
+            }
+        })
+    </script>
+</body>
+</html>

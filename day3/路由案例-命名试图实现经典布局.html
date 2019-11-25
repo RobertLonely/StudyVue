@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-router.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      h3 {
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+      }
+      .head {
+        height: 150px;
+        background-color: lightpink;
+      }
+      .all {
+        display: flex;
+        height: 800px;
+      }
+      .side {
+        background-color: lightgreen;
+        flex: 3;
+      }
+      .b {
+        background-color: lightcoral;
+        flex: 7;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 如果router-view没有设置名字，那么默认为default -->
+
+      <router-view></router-view>
+
+      <div class="all">
+        <router-view name="side"></router-view>
+        <router-view name="body"></router-view>
+      </div>
+    </div>
+    <script>
+      //组件模板对象
+      var head = {
+        template: '<h3 class="head">我是head</h3>'
+      };
+
+      var side = {
+        template: '<h3 class="side">我是side</h3>'
+      };
+
+      var body = {
+        template: '<h3 class="b">我是body</h3>'
+      };
+
+      //创建路由对象
+      var router = new VueRouter({
+        routes: [
+          {
+            path: "/",
+            //一个视图使用一个组件渲染，因此对于同个路由多个视图就需要多个组件。确保正确使用components配置(带上 s)：
+            components: {
+              default: head,
+              side, //相当于side:side,es6语法
+              body
+            }
+          }
+        ]
+      });
+      //创建vue实例
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+        methods: {},
+        router
+      });
+    </script>
+  </body>
+</html>
