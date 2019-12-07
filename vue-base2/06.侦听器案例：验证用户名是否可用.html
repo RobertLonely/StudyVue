@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <span>用户名：</span>
+        <span>
+          <input type="text" v-model.lazy="username" />
+        </span>
+        <span v-text="tip"></span>
+      </div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      // 创建vm实例对象
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          username: "",
+          tip: ""
+        },
+        methods: {
+          test: function(data) {
+            setTimeout(() => {
+              if (data === "罗伯特") {
+                this.tip = "用户名已经注册";
+              } else {
+                this.tip = "用户名可用";
+              }
+            }, 2000);
+          }
+        },
+        watch: {
+          username: function(val) {
+            // 将数据传递给数据库，进行验证
+            this.test(val);
+            this.tip = "验证用户名是否可用...";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

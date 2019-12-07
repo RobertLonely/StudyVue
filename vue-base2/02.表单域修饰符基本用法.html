@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      [v-cloak]{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model.number="num" /></br>
+      <input type="text" v-model.trim="str" /></br>
+      <input type="text" v-model.lazy="transition" v-cloak/>{{transition}}</br>
+      <input type="button" value="输出" @click="output" />
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      // 创建vm实例对象
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          num: "",
+          str: "",
+          transition:""
+        },
+        methods: {
+          output: function() {
+            // console.log(typeof this.num);
+            console.log(this.str.length);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

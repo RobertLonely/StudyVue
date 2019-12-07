@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <span v-text="sum"></span>
+      <!-- 第二次再使用sum属性时，如果a,b依赖不变，结果还会从缓存里面取 -->
+      <span v-text="sum"></span>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      // 创建vm实例对象
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          a: 1,
+          b: 2
+        },
+        computed: {
+          sum: function() {
+            console.log("show");
+            return this.a + this.b;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

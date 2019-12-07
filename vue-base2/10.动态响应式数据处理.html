@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="button" value="更新1" @click="update1" />
+      <input type="button" value="更新2" @click="update2" />
+
+      <ul>
+        <li v-for="(item,index) in arr1" :key="index">{{item}}</li>
+      </ul>
+      <input type="button" value="更新3" @click="update3" />
+      <input type="button" value="更新4" @click="update4" />
+      <ul>
+        <li v-for="(item,index) in arr2" :key="index">{{item}}</li>
+      </ul>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      // 创建vm实例对象
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          arr1: ["钢铁侠", "蜘蛛侠", "绿巨人"],
+          arr2: {
+            name: "钢铁侠",
+            sex: "男",
+            hobby: "泡妞"
+          }
+        },
+        methods: {
+          update1: function() {
+            Vue.set(this.arr1, 0, "小辣椒");
+          },
+          update2: function() {
+            vm.$set(this.arr1, 0, "钢铁侠");
+          },
+          update3: function() {
+            Vue.set(this.arr2, "hobby", "嘿嘿嘿");
+          },
+          update4: function() {
+            vm.$set(this.arr2, "hobby", "泡妞");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="button" value="反转" @click="reversal" />
+      <input type="button" value="排序" @click="sort" />
+      <input type="button" value="删除" @click="del" /> |
+      <input type="button" value="筛选" @click="filter" />
+      <ul v-for="(item,index) in arr" :key="index">
+        <li>{{item}}</li>
+      </ul>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      // 创建vm实例对象
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          arr: ["1钢铁侠-托尼", "3蜘蛛侠", "2绿巨人"]
+        },
+        methods: {
+          reversal: function() {
+            this.arr.reverse();
+          },
+          sort: function() {
+            this.arr.sort();
+          },
+          del: function() {
+            this.arr.splice(0, 1);
+          },
+          filter: function() {
+            this.arr = this.arr.filter(item => {
+              return item.length > 4;
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
