@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <alert-cpt>有一个bug</alert-cpt>
+      <alert-cpt>又有一个bug</alert-cpt>
+      <!-- 如果不填内容，将由默认值填写 -->
+      <alert-cpt></alert-cpt>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      // 自定义组件
+      Vue.component("alert-cpt", {
+        data: function() {
+          return {};
+        },
+        template: `
+        <div>
+          <strong>Error!</strong>
+          <slot>默认值</slot>
+        </div>
+        `,
+        methods: {}
+      });
+
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+        methods: {}
+      });
+    </script>
+  </body>
+</html>

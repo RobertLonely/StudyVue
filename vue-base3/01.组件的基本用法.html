@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <add-one></add-one>
+      <add-one></add-one>
+      <add-one></add-one>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      Vue.component("addOne", {
+        // 注意1：data的值必须为函数，这样是为了多次使用组件，每个组件都有独立的作用域
+        data: function() {
+          return {
+            count: 0
+          };
+        },
+        // 注意2：组件模板必须是单个根元素，就像顶级组件vm实例对象中的"#app"
+        // 注意3：组件模板的内容可以是模板字符串，方便嵌套元素
+        template: `
+        <div>
+          <button @click="addOne">点击加1</button>
+          <span>{{count}}</span>
+        </div>
+        `,
+        methods: {
+          addOne: function() {
+            this.count += 1;
+          }
+        }
+      });
+      // 创建vm实例对象
+      var vm = new Vue({
+        el: "#app",
+        data: {}
+      });
+    </script>
+  </body>
+</html>

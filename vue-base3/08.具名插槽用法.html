@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <rabbet>
+        <p slot="header">header</p>
+        <p>main</p>
+        <p slot="footer">footer</p>
+      </rabbet>
+
+      <p>--------------------------------------------------------------</p>
+
+      <rabbet>
+        <template slot="header">
+          <p>header</p>
+        </template>
+
+        <p>main</p>
+
+        <template slot="footer">
+          <p>footer</p>
+        </template>
+      </rabbet>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      Vue.component("rabbet", {
+        template: `
+        <div>
+          <header>
+            <slot name="header"></slot>
+          </header>
+          <main>
+            <slot></slot>
+          </main>
+          <footer>
+            <slot name="footer"></slot>
+          </footer>
+        </div>
+        `,
+        methods: {}
+      });
+      var vm = new Vue({
+        el: "#app"
+      });
+    </script>
+  </body>
+</html>

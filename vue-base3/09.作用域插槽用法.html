@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style type="text/css">
+      .current {
+        color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <fruit :fruits="fruits">
+        <template slot-scope="slotProps">
+          <strong v-if="slotProps.info.id===2" class="current"
+            >{{slotProps.info.name}}</strong
+          >
+          <span v-else>{{slotProps.info.name}}</span>
+        </template>
+      </fruit>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      Vue.component("fruit", {
+        data: function() {
+          return {};
+        },
+        props: ["fruits"],
+        template: `
+        <div>
+          <ul>
+            <li v-for="item in fruits" :key="item.id">
+              <slot :info="item">{{item.name}}</slot>
+            </li>
+          </ul>
+        </div>
+        `
+      });
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          fruits: [
+            {
+              id: 1,
+              name: "apple"
+            },
+            {
+              id: 2,
+              name: "orange"
+            },
+            {
+              id: 3,
+              name: "banana"
+            }
+          ]
+        },
+        methods: {}
+      });
+    </script>
+  </body>
+</html>

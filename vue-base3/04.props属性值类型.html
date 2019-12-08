@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <son-component :str="pstr"></son-component>
+      <son-component :num="pnum"></son-component>
+      <son-component :bol="pbol"></son-component>
+      <son-component :arr="parr"></son-component>
+      <son-component :obj="pobj"></son-component>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      Vue.component("son-component", {
+        data: function() {
+          return {};
+        },
+        props: ["str", "num", "bol", "arr", "obj"],
+        template: `
+        <div>
+        <p>{{typeof str || num}}</p> 
+        <p>{{typeof num}}</p> 
+        <p>{{typeof bol}}</p> 
+        <p>{{typeof arr}}</p> 
+        <p>{{typeof obj}}</p> |
+        </div>
+        `
+      });
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          pstr: "哈哈哈",
+          pnum: 123,
+          pbol: true,
+          parr: ["apple", "orange"],
+          pobj: { name: "罗伯特", age: 18 }
+        }
+      });
+    </script>
+  </body>
+</html>
