@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <router-link to="/index">首页</router-link>
+      <router-link to="/login">登录</router-link>
+      <router-view></router-view>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+      var index = {
+        template: `
+        <div>
+          <h3>我是首页，请先登录</h3>
+          <button @click="goLogin">登录</button>
+        </div>
+        `,
+        methods: {
+          goLogin: function() {
+            this.$router.push("/login");
+          }
+        }
+      };
+      var login = {
+        template: `
+        <div>
+          <h3>我是登录页</h3>
+          <button @click="goBack">返回</button>
+        </div>
+        `,
+        methods: {
+          goBack: function() {
+            this.$router.go(-1);
+          }
+        }
+      };
+      var router = new VueRouter({
+        routes: [
+          { path: "/index", component: index },
+          { path: "/login", component: login }
+        ]
+      });
+      // 创建vm实例对象
+      var vm = new Vue({
+        el: "#app",
+        router
+      });
+    </script>
+  </body>
+</html>

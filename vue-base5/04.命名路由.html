@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <router-link :to="{name:'test',params:{id:1}}">test</router-link>
+      <router-view />
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+      var test = {
+        props: ["id"],
+        template: `<h3>测试一下,id为：{{id}}</h3>`
+      };
+      // 创建路由对象
+      var router = new VueRouter({
+        routes: [
+          {
+            name: "test",
+            path: "/test",
+            component: test,
+            props: route => ({ id: route.params.id })
+          }
+        ]
+      });
+      var vm = new Vue({
+        el: "#app",
+        router
+      });
+    </script>
+  </body>
+</html>

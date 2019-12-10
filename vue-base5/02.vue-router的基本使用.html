@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 添加路由链接 -->
+      <router-link to="/index">首页</router-link>
+      <router-link to="/login">登录</router-link>
+      <!--  添加路由占位符-->
+      <router-view></router-view>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+      // 定义路由组件
+      var index = {
+        template: `<h3>我是首页我骄傲</h3>`
+      };
+      var login = {
+        template: `
+        <div>
+          <h3>我是登录页我自豪</h3>
+
+          <!-- 子路由链接 -->
+          <router-link to="/login/register">注册</router-link>
+          <router-link to="/login/forget">忘记密码</router-link>
+
+          <!-- 子路由的占位符 -->
+          <router-view></router-view>
+        </div>`
+      };
+      var register = {
+        template: `<h5>会员已满</h5>`
+      };
+      var forget = {
+        template: `<h5>重新注册</h5>`
+      };
+
+      // 创建路由实例
+      var router = new VueRouter({
+        // 配置路由规则
+        routes: [
+          // 路由重定向
+          { path: "/", redirect: "/index" },
+          { path: "/index", component: index },
+          {
+            path: "/login",
+            component: login,
+            // children 数组表示子路由规则
+            children: [
+              { path: "/login/register", component: register },
+              { path: "/login/forget", component: forget }
+            ]
+          }
+        ]
+      });
+
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+        // 挂载路由
+        router
+      });
+    </script>
+  </body>
+</html>

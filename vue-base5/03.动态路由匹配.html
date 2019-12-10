@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <router-link to="/father/iron/1">钢铁侠</router-link>
+      <router-link to="/son/spider/2">蜘蛛侠</router-link>
+      <router-link to="/friend">绿巨人</router-link>
+      <router-link to="/chili">小辣椒</router-link>
+      <router-view />
+    </div>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script>
+      var father = {
+        template: `<p>{{$route.params.id}}---{{$route.params.username}}</p>`
+      };
+      var son = {
+        props: ["id", "username"],
+        template: `<p>{{id}}---{{username}}</p>`
+      };
+      var friend = {
+        props: ["id", "username"],
+        template: `<p>{{id}}---{{username}}</p>`
+      };
+      var chili = {
+        props: ["id", "username"],
+        template: `<p>{{id}}---{{username}}</p>`
+      };
+      // 创建路由实例对象
+      const router = new VueRouter({
+        // 创建路由规则
+        routes: [
+          // 路由组件中通过$route.params获取路由参数
+          { path: "/father/:username/:id", component: father },
+          // 如果 props被设置为true，route.params 将会被设置为组件属性
+          { path: "/son/:username/:id", component: son, props: true },
+          // 如果 props是一个对象，它会被按原样设置为组件属性
+          {
+            path: "/friend",
+            component: friend,
+            props: { username: "死数据1", id: 0 }
+          },
+          // 如果props是一个函数，则这个函数接收route对象为自己的形参
+          {
+            path: "/chili",
+            component: chili,
+            props: route => ({ username: "死数据2", id: -1 })
+          }
+        ]
+      });
+      var vm = new Vue({
+        el: "#app",
+        // 挂载路由实例对象
+        router
+      });
+    </script>
+  </body>
+</html>
