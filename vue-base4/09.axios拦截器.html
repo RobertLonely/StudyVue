@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./js/axios.js"></script>
+    <script>
+      // 请求拦截器
+      axios.interceptors.request.use(
+        config => {
+          // 在请求发出之前进行一些信息设置
+          config.headers.myToken = "hello";
+          return config;
+        },
+        err => {
+          //处理响应的错误信息
+        }
+      );
+
+      // 响应拦截器
+      axios.interceptors.response.use(
+        response => {
+          response = response.data;
+          return response;
+        },
+        err => {
+          //处理响应的错误信息
+        }
+      );
+
+      // axios
+      //   .get("http://localhost:3000/axios/12")
+      //   .then(ret => console.log(ret.data));
+
+      axios.get("http://localhost:3000/axios/12").then(ret => console.log(ret));
+    </script>
+  </body>
+</html>

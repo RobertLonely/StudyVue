@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function queryData(url) {
+        return new Promise(function(resolve, reject) {
+          // 创建ajax对象
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (this.readyState !== 4) return;
+            if (this.status === 200) {
+              // 处理正常情况
+              resolve(this.responseText);
+            } else {
+              // 处理异常情况
+              reject("服务器错误,哈哈");
+            }
+          };
+          xhr.open("get", url);
+          xhr.send();
+        });
+      }
+      queryData("http://localhost:3000/test")
+        .then(data => {
+          console.log(data);
+          // 返回实例对象将会调用下一个then
+          return queryData("http://localhost:3000/tests");
+        })
+        .then(data => {
+          console.log(data);
+          // 返回普通值，会将值传递下一个then，通过then参数中函数的参数接收
+          return 123;
+        })
+        .then(data => {
+          console.log(data);
+        });
+    </script>
+  </body>
+</html>

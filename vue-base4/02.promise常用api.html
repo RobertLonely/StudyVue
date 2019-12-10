@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function queryData(url) {
+        return new Promise(function(resolve, reject) {
+          // 创建xhr对象
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (this.readyState !== 4) return;
+            if (this.status === 200) {
+              // 处理正常情况
+              resolve(this.responseText);
+            } else {
+              reject("出错了，嘻嘻嘻");
+            }
+          };
+          xhr.open("get", url);
+          xhr.send();
+        });
+      }
+      var p1 = queryData("http://localhost:3000/data1");
+      var p2 = queryData("http://localhost:3000/data2");
+      var p3 = queryData("http://localhost:3000/data3");
+      // all将会等所有请求响应后，才输出结果
+      Promise.all([p1, p2, p3]).then(data => console.log(data));
+      // race方法，只要有一个请响应，就会立即输出结果
+      Promise.race([p1, p2, p3]).then(data => console.log(data));
+    </script>
+  </body>
+</html>

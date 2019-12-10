@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./js/axios.js"></script>
+    <script>
+      // get方法传递参数------------------------------------------------------
+      axios
+        .get("http://localhost:3000/axios?id=12")
+        .then(ret => console.log(ret.data));
+
+      axios
+        .get("http://localhost:3000/axios/23")
+        .then(ret => console.log(ret.data));
+
+      axios
+        .get("http://localhost:3000/axios", { params: { id: 34 } })
+        .then(ret => console.log(ret.data));
+      // post方法传递参数-----------------------------------------------------
+      axios
+        .post("http://localhost:3000/axios", {
+          //默认传递的就是json格式
+          username: "罗伯特",
+          password: 123
+        })
+        .then(ret => console.log(ret.data));
+
+      //通过URLSearchParams传递参数
+      const params = new URLSearchParams();
+      params.append("username", "罗伯特");
+      params.append("password", 234);
+      axios
+        .post("http://localhost:3000/axios", params)
+        .then(ret => console.log(ret.data));
+      // delete方法传递参数---------------------------------------------------
+      axios
+        .delete("http://localhost:3000/axios?id=12")
+        .then(ret => console.log(ret.data));
+
+      axios
+        .delete("http://localhost:3000/axios/23")
+        .then(ret => console.log(ret.data));
+      // put方法传递参数-----------------------------------------------------
+      axios
+        .put("http://localhost:3000/axios?id=12", {
+          //默认传递的就是json格式
+          username: "罗伯特",
+          password: 123
+        })
+        .then(ret => console.log(ret.data));
+
+      //通过URLSearchParams传递参数
+      const p = new URLSearchParams();
+      p.append("username", "罗伯特");
+      p.append("password", 234);
+      axios
+        .put("http://localhost:3000/axios/23", p)
+        .then(ret => console.log(ret.data));
+    </script>
+  </body>
+</html>
