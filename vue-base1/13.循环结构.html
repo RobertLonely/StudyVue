@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(item,index) in list" :key="index">{{item}}</li>
+      </ul>
+
+      <dl>
+        <dd v-for="item in users" :key="item.id">
+          {{item.id}}---{{item.name}}
+        </dd>
+      </dl>
+
+      <ol>
+        <li v-for="(item,index) in data" :key="index">
+          {{item}}
+        </li>
+      </ol>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          list: ["钢铁侠", "蜘蛛侠", "黑寡妇"],
+          users: [
+            { id: 1, name: "钢铁侠" },
+            { id: 2, name: "蜘蛛侠" },
+            { id: 3, name: "黑寡妇" }
+          ],
+          data: {
+            id: 999,
+            name: "007",
+            hobby: "泡妞",
+            age: 14
+          }
+        },
+        methods: {}
+      });
+    </script>
+  </body>
+</html>

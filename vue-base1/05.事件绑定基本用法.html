@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.如果事件直接绑定函数名称，那么默认会传递事件对象作为事件函数的第一个参数 -->
+      <button v-on:click="goWarn">别点我，小心我警告你</button>
+      <!-- "@"为"v-on"的简写形式 -->
+      <button @click="goWarn">别点我，小心我警告你</button>
+
+      <!-- 2、如果事件绑定函数调用，那么事件对象必须作为最后一个参数显示传递，并且事件对象的名称必须是$event-->
+      <button @click="getContent(234)">我丢你一个234</button>
+
+      <!-- 3.事件修饰符 -->
+      <a href="http://www.baidu.com" @click.prevent>百度一下,已被阻止跳转</a>
+      <p style="background-color: pink" @click="bubbling">
+        <a href="http://www.baidu.com" @click.top>百度一下</a>
+      </p>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+        methods: {
+          goWarn: function() {
+            alert("我警告你");
+          },
+          getContent(value) {
+            alert(value);
+          },
+          bubbling: function() {
+            alert("要想去百度，先过我这关");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

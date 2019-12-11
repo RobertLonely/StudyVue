@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .active {
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <p :class="{active:isSelect}">123</p>
+      <button @click="toOpen">切换</button>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          isSelect: false
+        },
+        methods: {
+          toOpen: function() {
+            this.isSelect = !this.isSelect;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

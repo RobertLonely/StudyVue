@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-text="msg"></div>
+      <div v-html="htmlField"></div>
+      <div v-pre>{{original}}</div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "不存在闪动问题",
+          htmlField: "<h3>填充html字段</h3>",
+          original: "不存在闪动问题"
+        }
+      });
+    </script>
+  </body>
+</html>

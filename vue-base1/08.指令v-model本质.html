@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <span>{{msg}}</span>
+      <!-- 1.使用属性绑定，绑定value值 -->
+      <!-- 2.使用事件绑定，监听input事件 -->
+      <input type="text" :value="msg" @input="handle" />
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "123"
+        },
+        methods: {
+          handle: function(e) {
+            this.msg = e.target.value;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

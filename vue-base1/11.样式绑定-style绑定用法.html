@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div :style="{border:borderStyle,height:heightStyle}">1</div>
+      <div :style="[divStyle,{marginTop:marginStyle}]">2</div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          borderStyle: "2px solid pink",
+          heightStyle: "100px",
+          divStyle: {
+            border: "2px solid green",
+            height: "100px"
+          },
+          marginStyle: "10px"
+        }
+      });
+    </script>
+  </body>
+</html>
